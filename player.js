@@ -78,11 +78,11 @@
 
     musicBtn = document.createElement('button');
     musicBtn.type = 'button';
-    musicBtn.textContent = '? ??????';
-    musicBtn.title = '???????? / ????????? ??????';
+    musicBtn.textContent = '\u266b \u041c\u0443\u0437\u044b\u043a\u0430';
+    musicBtn.title = '\u0412\u043a\u043b\u044e\u0447\u0438\u0442\u044c / \u0432\u044b\u043a\u043b\u044e\u0447\u0438\u0442\u044c \u043c\u0443\u0437\u044b\u043a\u0443';
 
     const volumeLabel = document.createElement('label');
-    volumeLabel.textContent = '?????????';
+    volumeLabel.textContent = '\u0413\u0440\u043e\u043c\u043a\u043e\u0441\u0442\u044c';
 
     volumeInput = document.createElement('input');
     volumeInput.type = 'range';
@@ -120,7 +120,7 @@
 
   function updateMusicButton() {
     if (!musicBtn || !bgAudio) return;
-    musicBtn.textContent = bgAudio.paused ? '? ??????' : '?? ??????';
+    musicBtn.textContent = bgAudio.paused ? '\u266b \u041c\u0443\u0437\u044b\u043a\u0430' : '\u266b \u041c\u0443\u0437\u044b\u043a\u0430 \u0432\u043a\u043b.';
   }
 
   function slideUrl(item) {
