@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="color-scheme" content="dark">
+  <title>Диафильм</title>
+  <link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+  <div id="viewer" class="viewer">
+    <div class="stage">
+      <img id="slide" alt="">
+      <div id="loading" class="loading">Загрузка…</div>
+      <div id="error" class="error" hidden></div>
+    </div>
+    <div class="controls" aria-label="Управление диафильмом">
+      <button id="prev" type="button">← Назад</button>
+      <button id="play" type="button">▶ Пуск</button>
+      <button id="next" type="button">Вперёд →</button>
+      <span id="counter" class="counter">— / —</span>
+      <label>Интервал
+        <select id="interval" aria-label="Интервал">
+          <option value="3">3 с</option>
+          <option value="5">5 с</option>
+          <option value="8" selected>8 с</option>
+          <option value="10">10 с</option>
+          <option value="15">15 с</option>
+          <option value="20">20 с</option>
+          <option value="30">30 с</option>
+        </select>
+      </label>
+      <button id="fullscreen" type="button">⛶ Полный экран</button>
+    </div>
+  </div>
+  <h1 id="album-title" hidden>Диафильм</h1>
+  <script src="../../player.js"></script>
+</body>
+</html>
