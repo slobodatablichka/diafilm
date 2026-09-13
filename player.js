@@ -36,6 +36,8 @@
       titleEl.textContent = data.title || 'Диафильм';
       document.title = `${data.title || 'Диафильм'} — диафильм`;
 
+      setupAudio(data);
+
       slides = Array.isArray(data.slides) ? data.slides : [];
       if (!slides.length) throw new Error('В альбоме нет изображений.');
 
@@ -55,6 +57,71 @@
       error.hidden = false;
       error.textContent = `Не удалось открыть диафильм: ${e.message}`;
     });
+
+  let bgAudio = null;
+  let musicBtn = null;
+  let volumeInput = null;
+
+  function setupAudio(data) {
+    if (!data.audio) return;
+
+    const controls = document.querySelector('.controls');
+
+    bgAudio = new Audio(data.audio);
+    bgAudio.loop = true;
+    bgAudio.preload = 'metadata';
+
+    const volume = Number(data.audioVolume);
+    bgAudio.volume = Number.isFinite(volume)
+      ? Math.max(0, Math.min(1, volume))
+      : 0.25;
+
+    musicBtn = document.createElement('button');
+    musicBtn.type = 'button';
+    musicBtn.textContent = '? ??????';
+    musicBtn.title = '???????? / ????????? ??????';
+
+    const volumeLabel = document.createElement('label');
+    volumeLabel.textContent = '?????????';
+
+    volumeInput = document.createElement('input');
+    volumeInput.type = 'range';
+    volumeInput.min = '0';
+    volumeInput.max = '1';
+    volumeInput.step = '0.05';
+    volumeInput.value = String(bgAudio.volume);
+
+    volumeLabel.appendChild(volumeInput);
+    controls.appendChild(musicBtn);
+    controls.appendChild(volumeLabel);
+
+    musicBtn.addEventListener('click', async () => {
+      if (bgAudio.paused) {
+        try {
+          await bgAudio.play();
+        } catch (_) {}
+      } else {
+        bgAudio.pause();
+      }
+      updateMusicButton();
+    });
+
+    volumeInput.addEventListener('input', () => {
+      bgAudio.volume = Number(volumeInput.value);
+    });
+
+    bgAudio.addEventListener('play', updateMusicButton);
+    bgAudio.addEventListener('pause', updateMusicButton);
+
+    bgAudio.play()
+      .then(updateMusicButton)
+      .catch(updateMusicButton);
+  }
+
+  function updateMusicButton() {
+    if (!musicBtn || !bgAudio) return;
+    musicBtn.textContent = bgAudio.paused ? '? ??????' : '?? ??????';
+  }
 
   function slideUrl(item) {
     return typeof item === 'string' ? item : item.src;

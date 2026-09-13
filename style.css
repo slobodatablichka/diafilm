@@ -68,3 +68,8 @@ body { min-height: 100vh; }
 .error[hidden] {
   display: none !important;
 }
+
+.controls input[type="range"] {
+  width: 110px;
+  vertical-align: middle;
+}
