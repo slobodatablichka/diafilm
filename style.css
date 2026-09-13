@@ -63,3 +63,8 @@ body { min-height: 100vh; }
   .controls button, .controls select { height: 38px; padding: 0 10px; }
   .controls { gap: 6px; }
 }
+
+.loading[hidden],
+.error[hidden] {
+  display: none !important;
+}
